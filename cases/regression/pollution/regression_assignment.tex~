@@ -1,0 +1,213 @@
+\documentclass[10pt,letterpaper]{article}
+\usepackage[utf8]{inputenc}
+
+\usepackage{lmodern}
+\renewcommand{\familydefault}{\sfdefault}
+
+\usepackage{forest}
+
+\usepackage{latexsym}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{amstext}
+\usepackage{xcolor}
+\usepackage{framed}
+\colorlet{shadecolor}{black!10}
+\usepackage{hyperref}
+\hypersetup{
+  bookmarks=true,         % show bookmarks blaar?
+    unicode=false,          % non-Latin characters in Acrobats bookmarks
+    pdfnewwindow=true,      % links in new window
+    colorlinks=true,       % false: boxed links; true: colored links
+    linkcolor=red,          % color of internal links
+    citecolor=green,        % color of links to bibliography
+    filecolor=magenta,      % color of file links
+    urlcolor=blue, % color of external links
+}
+
+
+ \usepackage{graphicx}
+\graphicspath{{./figures/}}
+\usepackage{pstricks}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\usepackage{tikz-3dplot}
+%\pgfplotsset{width=7cm}
+%\usetikzlibrary{backgrounds}
+\usetikzlibrary{arrows.meta,patterns,decorations.pathmorphing,shapes,positioning}
+\usepackage{tikzscale}
+
+%\usepackage{pst-all}
+\usepackage{fancyvrb}
+\usepackage{verbatim}
+\usepackage{transparent}
+\usepackage{enumerate}
+\usepackage{ marvosym }
+
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\EE}{\mathbb{E}}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\proba}{\mathbb{P}}
+%\newcommand{\P}{\mathbb{P}}
+\newcommand{\PP}{\mathbb{P}}
+\newcommand{\var}{\mathbb{V}ar}
+\newcommand{\C}{\mathcal{C}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\OM}{\Omega}
+
+\usepackage{amsthm}
+\newtheorem{theorem}{Theorem}
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{ex}{Domanda}
+
+\newenvironment{solution}{\begin{shaded} {\bf Solution}}{\end{shaded}} 
+
+\DeclareMathOperator{\sign}{sign}
+\pgfplotsset{compat=1.11} 
+
+\oddsidemargin  0pt  \topmargin -0.5in \headsep 25pt \headheight
+13pt \textwidth 6.7in \textheight 9.1in \voffset 0in
+\marginparwidth 0pt \marginparsep 0pt \evensidemargin  0pt
+\parskip 1.5ex \parindent 0em \hfuzz 6pt \footskip 0pt
+
+\usepackage{fancyhdr}
+ \pagestyle{fancy}
+\fancyhf{}
+%\lhead{ 052487 - Machine Learning\\ \small{Assignment 2 - 11.12.19}}
+\rfoot{\thepage}
+
+\title{Regression Assignment: Predicting Pollution}
+\date{}
+\begin{document}
+
+\maketitle
+
+\section{Task Description}
+
+The health department of a region has noticed that pollution indicators 
+have drastically increased.
+The regional  government, concerned about this  situation, has decided
+to implement a prediction model to predict the concentration on carbon
+monoxide in the air from the date gathered by the air-quality monitors.
+
+In this assignment, you will use regression techniques in order
+to predict the CO concentration based on temporal, climatic and
+environmental data.
+
+The quality of your prediction is evaluated according to the Mean Absolute Error
+(MAE) metric.  
+
+\section{Dataset Description}
+
+The dataset  contains hourly information of  weather and environmental
+conditions in a time period from 2014 to 2018.
+
+The target attribute is the carbon monoxide concentration (\texttt{carb\_monox})
+
+Number of instances: 14000
+
+Number of attributes: 12
+
+\subsection{Target Class:}
+\texttt{carb\_monox}: CO concentration (micrograms per cubic meter)
+
+\subsection{Attribute Information:}
+  \begin{tabular}{llc p{7cm}}
+    Item& Attribute& Type&Values\\
+    \hline
+    1 & \textbf{hr:} hour of the day& Numerical/Categorical & 0-24\\
+    2 & \textbf{small\_part:} fine particulate matter concentration & Numerical & micrograms per cubic meter\\
+    3 & \textbf{med\_part:} particulate matter concentration & Numerical & micrograms per cubic meter\\
+    4 & \textbf{sulf\_diox:} Sulfur dioxide concentration &Numerical & micrograms per cubic meter\\
+    5 & \textbf{nitr\_diox:}  Nitrogen Dioxide concentration &Numerical & micrograms per cubic meter\\
+    6 & \textbf{trioxygen:}  Ozone  concentration &Numerical & micrograms per cubic meter\\
+    7 & \textbf{temp:}  Temperature &Numerical & degree Celsius\\
+    8 & \textbf{pres:} Pressure& Numerical & hectopascals\\
+    9 & \textbf{rain:}  Precipitation &Numerical & millimeters\\
+   10 & \textbf{wind:}  Wind direction &Categorical&E,
+                                                     ENE,ESE,N,NE,NNE,\\
+        &&& NNW,NW,S,SE,SSE,SSW,\\
+    &&&SW,W,WNW,WSW \\
+   11 & \textbf{wind\_sp:} Wind speed&Numerical & meters per second\\
+   12 & \textbf{date:}  Date &Categorical & day-month-year\\
+  \end{tabular}
+
+  \section{Predictions}
+
+  The prediction  of your  model can be  evaluated with  the following
+  datasets:
+  \begin{itemize}
+  \item prediction_explanatory: contains  the explanatory variables of
+    6050 independent records.
+    
+  \item  prediction_target: contains  the real  value of  the previous
+    observations that you can confront with your predictions.
+  \end{itemize}
+
+
+  
+\end{document}
+
+  \newpage
+
+  
+\section{Prediction File Submission}
+
+ \subsection{Model Submission: 16.12.2019, 11:59am}
+
+You are asked to kindly submit the following supporting information in
+\textbf{two files}:
+
+1.   A   brief  description   of   the   step  by   step   methodology
+(i.e. pre-processing, visualization, training, testing, etc.) that you
+have followed to  do the assignment, with the aim  of illustrating the
+motivation behind your selected approach.
+\begin{itemize}
+\item File Format: .pdf
+\item   Filename:\textbf{ 6-digit} student code (e.g. 123456.pdf)
+\end{itemize}
+2. The python  code that you used to do  the assignment, with comments
+within the code to ensure that they can be clearly understood.  
+\begin{itemize}
+\item File Format: .ipynb, .py
+\item Filename:\textbf{ 6-digit} student code (e.g. 123456.ipynb or 123456.py)
+\end{itemize}
+
+
+ \subsection{Test Publication: 16.12.2019, 14:00pm}
+
+
+ \subsection{Prediction Submission: 18.12.2019, 23:59pm}
+
+You are kindly requested to strictly follow the described submission guidelines:
+
+\begin{itemize}
+\item File Format: .csv
+\item   Filename:\textbf{ 6-digit} student code (e.g. 123456.csv)
+\item   Column Format: 1 Column named \textbf{"target"}
+\item   Row Format: Your  predictions with the  \textbf{same number of rows
+  and in the same order as the test set} provided to you 
+\end{itemize}
+%\includegraphics[height=.35\linewidth]{independent.png}\hspace{20pt}
+%  \includegraphics[height=.35\linewidth]{dependent.png}
+
+ \section{Important:}
+ \begin{itemize}
+ \item Check your uploaded files.
+ \item The model can not be modified after submission.
+ \item Any submission that does not respect the guidelines (out of deadline, empty
+   file, wrong student code) will not be graded.
+ \item Check your uploaded files!.
+   
+ \end{itemize}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
